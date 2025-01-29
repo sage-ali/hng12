@@ -1,0 +1,60 @@
+{
+  "extends": [
+    "@commitlint/config-conventional"
+  ],
+  "rules": {
+    "type-enum": [
+      2,
+      "always",
+      [
+        "feat",
+        "fix",
+        "docs",
+        "refactor",
+        "style",
+        "test",
+        "chore"
+      ]
+    ],
+    "scope-case": [
+      2,
+      "always",
+      "kebab-case"
+    ],
+    "subject-case": [
+      2,
+      "always",
+      "sentence-case"
+    ],
+    "subject-full-stop": [
+      2,
+      "never",
+      "."
+    ],
+    "header-pattern": [
+      2,
+      "always",
+      "^(feat|fix|docs|refactor|style|test|chore)\\((([a-zA-Z]*-)?(BE|FE|DO|O)-\\d+)\\):\\s[A-Z].{1,54}(?<!\\.)$"
+    ],
+    "body-max-line-length": [
+      2,
+      "always",
+      72
+    ],
+    "footer-max-line-length": [
+      2,
+      "always",
+      72
+    ],
+    "header-max-length": [
+      2,
+      "always",
+      72
+    ],
+    "body-case": [
+      2,
+      "always",
+      "sentence-case"
+    ]
+  }
+}

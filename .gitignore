@@ -1,0 +1,79 @@
+# Dependencies
+node_modules/
+
+# Build outputs
+dist/
+build/
+
+# Environment variables
+.env
+.env.local
+
+# IDE files
+.vscode/
+.idea/
+
+# Logs
+*.log
+npm-debug.log*
+
+# Testing
+coverage/
+
+# OS files
+.DS_Store
+Thumbs.db
+
+## For subdirectories
+
+# Dependencies
+**/node_modules/
+
+# Build outputs
+**/dist/
+**/build/
+
+# Environment variables
+**/.env
+**/.env.local
+
+# IDE files
+**/.vscode/
+**/.idea/
+
+# Logs
+**/*.log
+**/npm-debug.log*
+
+# Testing
+**/coverage/
+
+# OS files
+**/.DS_Store
+**/Thumbs.db
+
+# Environment variable files
+*.env
+*.env.test
+*.env.production
+
+# VSCode specific
+# .vscode/
+# *.code-workspace
+
+# OS-specific files
+*.DS_Store
+*Thumbs.db
+
+# Lockfiles
+*package-lock.json
+*yarn.lock
+*pnpm-lock.yaml
+
+# IDEs and editors
+*.idea/
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.vscode/
