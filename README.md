@@ -8,7 +8,7 @@ This repository showcases my journey and progress through the HNG Internship pro
 
 ## Structure
 
-- [Backend Stage 0](#) - Getting Started - Basic API Development
+- [Backend Stage 0](./BE-stage-00/) - Getting Started - Basic API Development
 
 ## Navigation
 

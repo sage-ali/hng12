@@ -4,7 +4,7 @@
   "description": "HNG Internship Tasks - Root Configuration",
   "private": true,
   "workspaces": [
-    "stage_*"
+    "BE-stage-00"
   ],
   "scripts": {
     "lint": "eslint .",

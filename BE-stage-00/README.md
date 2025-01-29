@@ -37,7 +37,7 @@ A basic API built with Express and TypeScript.
 
 ## API Documentation
 
-- `GET /api/datetime`: Returns the current date and time in ISO format
+- `GET /api`: Returns my email, current date and time in ISO format, and GitHub URL of the project's codebase.
 
 ## Technologies Used
 
