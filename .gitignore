@@ -2,7 +2,7 @@
 node_modules/
 
 # Build outputs
-dist/
+# dist/
 build/
 
 # Environment variables
@@ -30,7 +30,7 @@ Thumbs.db
 **/node_modules/
 
 # Build outputs
-**/dist/
+# **/dist/
 **/build/
 
 # Environment variables
@@ -77,3 +77,4 @@ Thumbs.db
 *.njsproj
 *.sln
 *.vscode/
+.vercel

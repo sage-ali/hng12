@@ -15,7 +15,7 @@ app.get('/', (req: Request, res: Response): void => {
   res.send('Welcome to the API');
 });
 
-if (process.env.url && process.argv[1] === new URL(process.env.url).pathname) {
+if (process.env.NODE_ENV !== 'test') {
   app.listen(port, (): void => {
     // eslint-disable-next-line no-console
     console.log(`Server running on port ${port}`);
