@@ -8,8 +8,7 @@
   ],
   "scripts": {
     "lint": "eslint .",
-    "prettier": "prettier --write .",
-    "prepare": "husky install"
+    "prettier": "prettier --write ."
   },
   "keywords": [
     "hng",
