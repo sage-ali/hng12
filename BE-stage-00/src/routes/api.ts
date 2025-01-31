@@ -11,6 +11,14 @@ interface ApiResponse {
 }
 
 router.get('/', (req: Request, res: Response) => {
+  /**
+   * Represents the response object for the API.
+   *
+   * @typedef {Object} ApiResponse
+   * @property {string} email - The email address of the user.
+   * @property {string} currentDatetime - The current date and time.
+   * @property {string} githubUrl - The URL to the user's GitHub repository.
+   */
   const response: ApiResponse = {
     email: 'aliagboola1@gmail.com',
     currentDatetime: getCurrentDateTime(),

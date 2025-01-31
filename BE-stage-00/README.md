@@ -53,15 +53,76 @@ The implementation involves setting up an Express server with TypeScript and usi
 ## Available Scripts
 
 - `start`: Start the production server
-- `build`: Compile TypeScript to JavaScript
-- `dev`: Start the development server with nodemon
+- `build`: Compile TypeScript to JavaScript and bundle with vite
+- `dev`: Start the development server with vite
 - `test`: Run tests with Jest
 - `lint`: Run ESLint
 - `prettier`: Run Prettier
 
 ## API Documentation
 
-- `GET /api`: Returns my email, current date and time in ISO format, and GitHub URL of the project's codebase.
+This project provides a public API that returns a JSON response with the following details:
+
+- My registered email address.
+- The current datetime in ISO 8601 format (UTC).
+- The GitHub URL of the project's codebase.
+
+### Endpoint URL
+
+`GET https://hng12-be-stage-00-6xyjgjhd3-sage-alis-projects.vercel.app/api`
+
+---
+
+### Request Format
+
+This endpoint accepts a `GET` request and does not require any request body or parameters.
+
+### Response Format
+
+A JSON object containing the following keys:
+
+- `email`: Your registered email address.
+- `currentDatetime`: The current datetime in ISO 8601 format (UTC).
+- `githubUrl`: The GitHub URL of the project's codebase.
+
+Example Response:
+
+```json
+{
+  "email": "aliagboola1@gmail.com",
+  "currentDatetime": "2025-01-31T22:27:06.434Z",
+  "githubUrl": "https://github.com/sage-ali/hng12/BE-stage-00"
+}
+```
+
+---
+
+### Example Usage
+
+#### Using `curl`:
+
+```bash
+curl https://hng12-be-stage-00-6xyjgjhd3-sage-alis-projects.vercel.app/api
+```
+
+#### Response:
+
+```json
+{
+  "email": "aliagboola1@gmail.com",
+  "currentDatetime": "2025-01-31T22:27:06.434Z",
+  "githubUrl": "https://github.com/sage-ali/hng12/BE-stage-00"
+}
+```
+
+---
+
+If you're interested in hiring developers proficient in specific programming languages or stacks, check out the following resources:
+
+- [Hire Python Developers](https://hng.tech/hire/python-developers)
+- [Hire C# Developers](https://hng.tech/hire/csharp-developers)
+
+---
 
 ## Technologies Used
 
@@ -74,7 +135,11 @@ The implementation involves setting up an Express server with TypeScript and usi
 
 ## Deployment
 
-To deploy the application, follow these steps:
+Application was deployed to vercel following [this tutorial](https://www.youtube.com/watch?v=CNJkX9rYI8U)
+
+[Link to API](https://hng12-be-stage-00-6xyjgjhd3-sage-alis-projects.vercel.app/api)
+
+To deploy the application locally, follow these steps:
 
 1. Build the application for production:
 
@@ -90,6 +155,8 @@ To deploy the application, follow these steps:
 
 3. Ensure your server is configured to serve the built files from the `dist` directory.
 
+---
+
 ## Screenshots/Demo
 
-[Add screenshots or demo links if required]
+![Image showing deployed api and speed](api.png)
