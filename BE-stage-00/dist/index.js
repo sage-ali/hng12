@@ -1,5 +1,4 @@
 'use strict';
-
 const express = require('express');
 const cors = require('cors');
 const httpStatusCodes = require('http-status-codes');
@@ -8,8 +7,8 @@ const router = express.Router();
 router.get('/', (req, res) => {
   const response = {
     email: 'aliagboola1@gmail.com',
-    currentDatetime: getCurrentDateTime(),
-    githubUrl: 'https://github.com/sage-ali/hng12/BE-stage-00',
+    current_datetime: getCurrentDateTime(),
+    github_url: 'https://github.com/sage-ali/hng12/BE-stage-00',
   };
   res.status(httpStatusCodes.StatusCodes.OK).json(response);
 });
