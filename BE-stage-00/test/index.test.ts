@@ -24,14 +24,12 @@ describe('GET /api', () => {
   it('should return email, datetime, and githubUrl', async () => {
     const response = await supertestRequest(server).get('/api');
     expect(response.status).toBe(HTTP_OK);
-    expect(response.body).toHaveProperty('currentDatetime');
+    expect(response.body).toHaveProperty('current_datetime');
     expect(response.body).toHaveProperty('email');
-    expect(response.body).toHaveProperty('githubUrl');
-    expect(response.body.currentDatetime).toBeTruthy();
+    expect(response.body).toHaveProperty('github_url');
+    expect(response.body.current_datetime).toBeTruthy();
     expect(response.body.email).toBe('aliagboola1@gmail.com');
     /* eslint-disable comma-dangle */
-    expect(response.body.githubUrl).toBe(
-      'https://github.com/sage-ali/hng12/BE-stage-00'
-    );
+    expect(response.body.github_url).toBe('https://github.com/sage-ali/hng12/');
   });
 });

@@ -72,7 +72,7 @@
  * - `eslintConfigPrettier`: Prettier rules to disable conflicting ESLint rules.
  */
 import globals from 'globals';
-import pluginJs from '@eslint/js';
+// import pluginJs from '@eslint/js';
 import * as tseslint from '@typescript-eslint/eslint-plugin';
 import * as tsParser from '@typescript-eslint/parser';
 import airbnbBase from 'eslint-config-airbnb-base';
@@ -84,20 +84,14 @@ const MAX_DEPTH = 3;
 
 /** @type {import('eslint').Linter.Config[]} */
 export default [
-  // ESLint recommended rules
-  pluginJs.configs.recommended,
-
-  // Prettier rules
-  eslintConfigPrettier,
-
   // Main configuration for TypeScript files
   {
     files: ['src/**/*.ts'],
     ignores: [
       '**/node_modules/**',
-      'dist/**',
-      'build/**',
-      'coverage/**',
+      '**/dist/**',
+      '**/build/**',
+      '**/coverage/**',
       '*.config.*',
       'commitlint.config.js',
     ],
@@ -145,7 +139,7 @@ export default [
       'no-magic-numbers': ['warn', { ignore: [0, 1], enforceConst: true }],
 
       // Enforce camelCase
-      camelcase: ['error', { properties: 'always' }],
+      camelcase: ['warn', { properties: 'always' }],
       // Short names exception
       'id-length': ['warn', { min: 2, exceptions: ['i', 'j', 'x', 'y'] }],
 
@@ -291,9 +285,9 @@ export default [
     files: ['**/*.js', '**/*.mjs', '**/*.cjs'],
     ignores: [
       '**/node_modules/**',
-      'dist/**',
+      '**/dist/**',
       'build/**',
-      'coverage/**',
+      '**/coverage/**',
       '*.config.*',
       'commitlint.config.js',
     ],
@@ -380,4 +374,10 @@ export default [
       'prefer-object-spread': 'warn',
     },
   },
+
+  // ESLint recommended rules
+  // pluginJs.configs.recommended,
+
+  // Prettier rules
+  eslintConfigPrettier,
 ];

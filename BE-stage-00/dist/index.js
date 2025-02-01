@@ -2,13 +2,25 @@
 const express = require('express');
 const cors = require('cors');
 const httpStatusCodes = require('http-status-codes');
-const getCurrentDateTime = () => /* @__PURE__ */ new Date().toISOString();
+const getCurrentDateTime = () => {
+  const date = /* @__PURE__ */ new Date();
+  const year = date.getUTCFullYear();
+  const month = String(date.getUTCMonth() + 1).padStart(2, '0');
+  const day = String(date.getUTCDate()).padStart(2, '0');
+  const hours = String(date.getUTCHours()).padStart(2, '0');
+  const minutes = String(date.getUTCMinutes()).padStart(2, '0');
+  const seconds = String(date.getUTCSeconds()).padStart(2, '0');
+  const milliseconds = String(date.getUTCMilliseconds())
+    .padStart(3, '0')
+    .slice(0, 2);
+  return `${year}-${month}-${day}T${hours}:${minutes}:${seconds}.${milliseconds}Z`;
+};
 const router = express.Router();
 router.get('/', (req, res) => {
   const response = {
     email: 'aliagboola1@gmail.com',
     current_datetime: getCurrentDateTime(),
-    github_url: 'https://github.com/sage-ali/hng12/BE-stage-00',
+    github_url: 'https://github.com/sage-ali/hng12/',
   };
   res.status(httpStatusCodes.StatusCodes.OK).json(response);
 });

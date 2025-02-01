@@ -22,7 +22,7 @@ router.get('/', (req: Request, res: Response) => {
   const response: ApiResponse = {
     email: 'aliagboola1@gmail.com',
     current_datetime: getCurrentDateTime(),
-    github_url: 'https://github.com/sage-ali/hng12/BE-stage-00',
+    github_url: 'https://github.com/sage-ali/hng12/',
   };
   res.status(StatusCodes.OK).json(response);
 });
