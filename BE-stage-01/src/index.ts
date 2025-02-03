@@ -1,6 +1,7 @@
 import express, { Application, Request, Response } from 'express';
 import cors from 'cors';
-import api from './routes/api';
+import api from './routes/ClassifyNumber';
+import { StatusCodes } from 'http-status-codes';
 
 const app: Application = express();
 const DEFAULT_PORT: number = 3000;
@@ -18,15 +19,15 @@ const port: number | string = process.env.PORT || DEFAULT_PORT;
 app.use(cors());
 app.use(express.json());
 
-/*
- * Todo
- * Add the API route to the server
- */
 app.use('/api', api);
 
 // Add this route to handle the root path
 app.get('/', (req: Request, res: Response): void => {
   res.send('Welcome to the API');
+});
+
+app.use((req: Request, res: Response): void => {
+  res.status(StatusCodes.NOT_IMPLEMENTED).send('Not Implemented');
 });
 
 // conditional so server does not run during tests
