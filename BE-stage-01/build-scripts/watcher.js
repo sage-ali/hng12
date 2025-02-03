@@ -16,7 +16,7 @@ const logger = (message, type = 'log') => {
 logger('Starting the watcher...');
 
 // Specify the directories to watch and extensions to filter
-const watchedDirectories = ['./src', './tests'];
+const watchedDirectories = ['./src', './test'];
 const extensions = ['js', 'mjs', 'cjs', 'ts', 'jsx', 'tsx'];
 
 // Helper function to check if a file has a desired extension
@@ -58,7 +58,9 @@ watcher.on('add', (filePath) => {
   const srcDIR = 'src/';
   const testDIR = 'test/';
 
-  if (!filePath.startsWith(srcDIR)) return;
+  if (!filePath.startsWith(srcDIR)) {
+    return;
+  }
 
   if (hasValidExtension(filePath)) {
     const testFilePath = filePath
@@ -87,8 +89,9 @@ watcher.on('add', (filePath) => {
 // Lint file function
 const lintFile = (filePath) => {
   const absoluteFilePath = path.resolve(getDirname(), '..', filePath);
+  logger(`${absoluteFilePath.replace('/home/sage-ali/hng/BE-stage-01/', '')}`);
   exec(
-    `eslint ${absoluteFilePath}`,
+    `eslint ${absoluteFilePath.replace('/home/sage-ali/hng/BE-stage-01/', '')}`,
     { cwd: path.resolve(getDirname(), '..') },
     (error, stdout, stderr) => {
       if (error) {
