@@ -1,4 +1,5 @@
-export const isPrime = function isPrime(num: number): boolean {
+export const isPrime = function isPrime(numStr: string): boolean {
+  const num = parseInt(numStr, 10);
   if (num <= 1) {
     return false;
   }
@@ -10,34 +11,38 @@ export const isPrime = function isPrime(num: number): boolean {
   return true;
 };
 
-export const isArmstrong = function isArmstrong(num: number): boolean {
+export const isArmstrong = function isArmstrong(numStr: string): boolean {
+  const num = parseInt(numStr, 10);
   if (num < 0) {
     return false;
   }
-  const digits = num.toString().split('');
+  const digits = numStr.split('');
   const length = digits.length;
 
-  digits.forEach((digit, index, arr) => {
-    arr[index] = Math.pow(parseInt(digit, 10), length).toString();
-  });
+  const sum = digits.reduce(
+    (acc, digit) => acc + Math.pow(parseInt(digit, 10), length),
+    0
+  );
 
-  return num === digits.reduce((acc, cur) => acc + parseInt(cur, 10), 0);
+  return num === sum;
 };
 
-export const getDigitSum = function getDigitSum(num: number): number | false {
-  if (num < 0) {
-    return false;
-  }
-
-  return num
-    .toString()
-    .split('')
-    .reduce((acc, cur) => acc + parseInt(cur, 10), 0);
+export const getDigitSum = function getDigitSum(numStr: string): number {
+  const digits = numStr.startsWith('-')
+    ? numStr
+        .slice(1)
+        .split('')
+        .map((digit, index) =>
+          index === 0 ? -parseInt(digit, 10) : parseInt(digit, 10)
+        )
+    : numStr.split('').map((digit) => parseInt(digit, 10));
+  const sum = digits.reduce((acc, digit) => acc + digit, 0);
+  return sum;
 };
 
-export const isPerfect = function isPerfect(num: number): boolean {
-  const firstPerfect = 6;
-  if (num < firstPerfect) {
+export const isPerfect = function isPerfect(numStr: string): boolean {
+  const num = parseInt(numStr, 10);
+  if (num < 6) {
     return false;
   }
 
@@ -47,9 +52,7 @@ export const isPerfect = function isPerfect(num: number): boolean {
   return divisors.reduce((acc, cur) => acc + cur, 0) === num;
 };
 
-export const getParity = function getParity(num: number): string | false {
-  if (num !== Math.floor(num)) {
-    return false;
-  }
+export const getParity = function getParity(numStr: string): string {
+  const num = parseInt(numStr, 10);
   return num % 2 === 0 ? 'even' : 'odd';
 };

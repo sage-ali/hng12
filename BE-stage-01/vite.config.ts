@@ -6,14 +6,14 @@ export default defineConfig({
   plugins: [
     VitePluginNode({
       adapter: 'express',
-      appPath: './build/src/index.js', // Use the output of tsc
+      appPath: './src/index.ts', // Use the output of tsc
       exportName: 'app',
     }),
   ],
   build: {
     outDir: 'dist', // Final bundled output directory
     rollupOptions: {
-      input: resolve(__dirname, 'build/src/index.js'), // Entry file for bundling
+      input: resolve(__dirname, 'src/index.js'), // Entry file for bundling
       output: {
         entryFileNames: 'index.js', // Output file name
       },
