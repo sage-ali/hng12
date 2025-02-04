@@ -78,6 +78,7 @@ router.get(
     try {
       funFact = await getFunFact(num);
     } catch (error) {
+      console.log(error);
       funFact = 'Could not retrieve fun fact';
     }
 

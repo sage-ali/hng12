@@ -43,14 +43,14 @@ describe('API Endpoints', () => {
   it('should return error for an invalid number', async () => {
     const response = await request(app).get('/api/classify-number?number=abc');
     expect(response.status).toBe(400);
-    expect(response.body).toHaveProperty('number', 'alphabet');
+    expect(response.body).toHaveProperty('number', 'abc');
     expect(response.body).toHaveProperty('error', true);
   });
 
   it('should return error for missing number parameter', async () => {
     const response = await request(app).get('/api/classify-number');
     expect(response.status).toBe(400);
-    expect(response.body).toHaveProperty('message', 'Missing number parameter');
+    expect(response.body).toHaveProperty('number', '');
     expect(response.body).toHaveProperty('error', true);
   });
 

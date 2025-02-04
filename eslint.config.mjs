@@ -82,6 +82,13 @@ export default [
   {
     name: 'Base Config',
     files: ['**/*.{js,mjs,cjs,ts,tsx}'],
+    ignores: [
+      '**/dist/*',
+      '**/dist/**/*',
+      '**/build/**/*',
+      '**/build/**/**/*',
+      'BE-stage-01/add-js-extensions.js',
+    ], // Add this line
     languageOptions: {
       ecmaVersion: 2021,
       sourceType: 'module',
@@ -131,6 +138,13 @@ export default [
   {
     name: 'TypeScript Config',
     files: ['**/*.{ts,tsx}'],
+    ignores: [
+      '**/dist/*',
+      '**/dist/**/*',
+      '**/build/**/*',
+      '**/build/**/**/*',
+      'BE-stage-01/add-js-extensions.js',
+    ], // Add this line
     languageOptions: {
       parser: tsParser,
       parserOptions: {
@@ -148,6 +162,13 @@ export default [
   {
     name: 'Test Config',
     files: ['**/test/**/*.{js,ts}', '**/tests/**/*.{js,ts}'],
+    ignores: [
+      '**/dist/*',
+      '**/dist/**/*',
+      '**/build/**/*',
+      '**/build/**/**/*',
+      'BE-stage-01/add-js-extensions.js',
+    ], // Add this line
     rules: {
       'no-console': 'off',
       'no-magic-numbers': 'off',
