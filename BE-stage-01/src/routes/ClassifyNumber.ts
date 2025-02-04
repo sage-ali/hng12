@@ -28,10 +28,17 @@ router.get(
   '/classify-number',
   async (req: Request, res: Response): Promise<void> => {
     const numStr = req.query.number as string;
-
-    if (numStr === undefined || numStr === null || numStr === '') {
+    if (numStr === undefined || numStr === null || numStr.trim() === '') {
       res.status(StatusCodes.BAD_REQUEST).json({
-        message: 'Missing number parameter',
+        number: '',
+        error: true,
+      });
+      return;
+    }
+
+    if (!/^\d+$/.test(numStr)) {
+      res.status(StatusCodes.BAD_REQUEST).json({
+        number: numStr,
         error: true,
       });
       return;
@@ -40,7 +47,7 @@ router.get(
     const num = parseInt(numStr, 10);
     if (isNaN(num)) {
       res.status(StatusCodes.BAD_REQUEST).json({
-        number: 'alphabet',
+        number: numStr,
         error: true,
       });
       return;
@@ -56,7 +63,7 @@ router.get(
 
     if (num > Number.MAX_SAFE_INTEGER) {
       res.status(StatusCodes.BAD_REQUEST).json({
-        message: 'Number too large',
+        number: numStr,
         error: true,
       });
       return;
@@ -89,10 +96,10 @@ router.get(
 
 router.get(/^.*/i, (req: Request, res: Response) => {
   const response: ApiResponse = {
-    message: 'Not implemented',
+    number: '',
     error: true,
   };
-  res.status(StatusCodes.NOT_IMPLEMENTED).json(response);
+  res.status(StatusCodes.BAD_REQUEST).json(response);
 });
 
 export default router;

@@ -77,9 +77,16 @@ const getFunFact = async (num) => {
 const router = express.Router();
 router.get('/classify-number', async (req, res) => {
   const numStr = req.query.number;
-  if (numStr === void 0 || numStr === null || numStr === '') {
+  if (numStr === void 0 || numStr === null || numStr.trim() === '') {
     res.status(httpStatusCodes.StatusCodes.BAD_REQUEST).json({
-      message: 'Missing number parameter',
+      number: '',
+      error: true,
+    });
+    return;
+  }
+  if (!/^\d+$/.test(numStr)) {
+    res.status(httpStatusCodes.StatusCodes.BAD_REQUEST).json({
+      number: numStr,
       error: true,
     });
     return;
@@ -87,7 +94,7 @@ router.get('/classify-number', async (req, res) => {
   const num = parseInt(numStr, 10);
   if (isNaN(num)) {
     res.status(httpStatusCodes.StatusCodes.BAD_REQUEST).json({
-      number: 'alphabet',
+      number: numStr,
       error: true,
     });
     return;
@@ -101,7 +108,7 @@ router.get('/classify-number', async (req, res) => {
   }
   if (num > Number.MAX_SAFE_INTEGER) {
     res.status(httpStatusCodes.StatusCodes.BAD_REQUEST).json({
-      message: 'Number too large',
+      number: numStr,
       error: true,
     });
     return;
@@ -128,10 +135,10 @@ router.get('/classify-number', async (req, res) => {
 });
 router.get(/^.*/i, (req, res) => {
   const response = {
-    message: 'Not implemented',
+    number: '',
     error: true,
   };
-  res.status(httpStatusCodes.StatusCodes.NOT_IMPLEMENTED).json(response);
+  res.status(httpStatusCodes.StatusCodes.BAD_REQUEST).json(response);
 });
 const app = express();
 const DEFAULT_PORT = 3e3;
