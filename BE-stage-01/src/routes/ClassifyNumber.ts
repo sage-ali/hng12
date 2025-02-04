@@ -27,9 +27,9 @@ interface ApiResponse {
 router.get(
   '/classify-number',
   async (req: Request, res: Response): Promise<void> => {
-    const num = parseInt(req.query.number as string, 10);
+    const numStr = req.query.number as string;
 
-    if (req.query.number === undefined || req.query.number === null) {
+    if (numStr === undefined || numStr === null) {
       res.status(StatusCodes.BAD_REQUEST).json({
         message: 'Missing number parameter',
         error: true,
@@ -37,6 +37,7 @@ router.get(
       return;
     }
 
+    const num = parseInt(numStr, 10);
     if (isNaN(num)) {
       res.status(StatusCodes.BAD_REQUEST).json({
         number: 'alphabet',
@@ -45,23 +46,23 @@ router.get(
       return;
     }
 
-    const digitSum = getDigitSum(num);
-    const parity = getParity(num);
-
-    if (digitSum === false || parity === false) {
+    if (!Number.isInteger(parseFloat(numStr))) {
       res.status(StatusCodes.BAD_REQUEST).json({
-        message: 'Invalid number',
+        message: 'The number parameter must be an integer',
         error: true,
       });
       return;
     }
 
-    const properties = isArmstrong(num) ? ['armstrong', parity] : [parity];
+    const digitSum = getDigitSum(numStr);
+    const parity = getParity(numStr);
+
+    const properties = isArmstrong(numStr) ? ['armstrong', parity] : [parity];
 
     const response: ApiResponse = {
       number: num,
-      is_prime: isPrime(num),
-      is_perfect: isPerfect(num),
+      is_prime: isPrime(numStr),
+      is_perfect: isPerfect(numStr),
       properties: properties,
       digit_sum: digitSum,
       fun_fact: await getFunFact(num),

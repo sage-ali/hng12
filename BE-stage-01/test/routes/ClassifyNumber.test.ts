@@ -31,6 +31,16 @@ describe('GET /classify-number', () => {
     expect(response.body).toHaveProperty('error', true);
   });
 
+  it('should return error for non-integer number', async () => {
+    const response = await request(app).get('/classify-number?number=1.5');
+    expect(response.status).toBe(400);
+    expect(response.body).toHaveProperty(
+      'message',
+      'The number parameter must be an integer'
+    );
+    expect(response.body).toHaveProperty('error', true);
+  });
+
   it('should return not implemented for other routes', async () => {
     const response = await request(app).get('/some-other-route');
     expect(response.status).toBe(501);
