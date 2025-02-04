@@ -26,31 +26,34 @@ interface ApiResponse {
 
 router.get(
   '/classify-number',
-  async (req: Request, res: Response): Promise<Response> => {
+  async (req: Request, res: Response): Promise<void> => {
     const num = parseInt(req.query.number as string, 10);
 
     if (req.query.number === undefined || req.query.number === null) {
-      return res.status(StatusCodes.BAD_REQUEST).json({
+      res.status(StatusCodes.BAD_REQUEST).json({
         message: 'Missing number parameter',
         error: true,
       });
+      return;
     }
 
     if (isNaN(num)) {
-      return res.status(StatusCodes.BAD_REQUEST).json({
+      res.status(StatusCodes.BAD_REQUEST).json({
         number: 'alphabet',
         error: true,
       });
+      return;
     }
 
     const digitSum = getDigitSum(num);
     const parity = getParity(num);
 
     if (digitSum === false || parity === false) {
-      return res.status(StatusCodes.BAD_REQUEST).json({
+      res.status(StatusCodes.BAD_REQUEST).json({
         message: 'Invalid number',
         error: true,
       });
+      return;
     }
 
     const properties = isArmstrong(num) ? ['armstrong', parity] : [parity];
@@ -63,7 +66,8 @@ router.get(
       digit_sum: digitSum,
       fun_fact: await getFunFact(num),
     };
-    return res.status(StatusCodes.OK).json(response);
+    res.status(StatusCodes.OK).json(response);
+    return;
   }
 );
 

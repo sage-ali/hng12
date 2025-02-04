@@ -16,7 +16,7 @@ describe('getFunFact', () => {
   });
 
   it('should throw an error if the request fails', async () => {
-    const num = 'aaa';
+    const num = 9999999;
     const errorMessage = 'Network Error';
     nock('http://numbersapi.com').get(`/${num}`).replyWithError(errorMessage);
 
