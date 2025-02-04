@@ -13,6 +13,6 @@ export const getFunFact = async (num: number): Promise<string> => {
     .get(`/${num}`)
     .then((response) => response.data)
     .catch((error) => {
-      throw new Error(error);
+      throw new Error(`Failed to fetch fun fact: ${error.message}`);
     });
 };

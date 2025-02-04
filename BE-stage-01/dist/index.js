@@ -4,6 +4,9 @@ const cors = require('cors');
 const axios = require('axios');
 const httpStatusCodes = require('http-status-codes');
 const isPrime = function isPrime2(numStr) {
+  if (numStr.startsWith('-')) {
+    return false;
+  }
   const num = parseInt(numStr, 10);
   if (num <= 1) {
     return false;
@@ -16,8 +19,11 @@ const isPrime = function isPrime2(numStr) {
   return true;
 };
 const isArmstrong = function isArmstrong2(numStr) {
+  if (numStr.startsWith('-')) {
+    return false;
+  }
   const num = parseInt(numStr, 10);
-  if (num < 0) {
+  if (num <= 0) {
     return false;
   }
   const digits = numStr.split('');
@@ -33,14 +39,15 @@ const getDigitSum = function getDigitSum2(numStr) {
     ? numStr
         .slice(1)
         .split('')
-        .map((digit, index) =>
-          index === 0 ? -parseInt(digit, 10) : parseInt(digit, 10)
-        )
+        .map((digit) => parseInt(digit, 10))
     : numStr.split('').map((digit) => parseInt(digit, 10));
   const sum = digits.reduce((acc, digit) => acc + digit, 0);
-  return sum;
+  return numStr.startsWith('-') ? -sum : sum;
 };
 const isPerfect = function isPerfect2(numStr) {
+  if (numStr.startsWith('-')) {
+    return false;
+  }
   const num = parseInt(numStr, 10);
   if (num < 6) {
     return false;
@@ -64,13 +71,13 @@ const getFunFact = async (num) => {
     .get(`/${num}`)
     .then((response) => response.data)
     .catch((error) => {
-      throw new Error(error);
+      throw new Error(`Failed to fetch fun fact: ${error.message}`);
     });
 };
 const router = express.Router();
 router.get('/classify-number', async (req, res) => {
   const numStr = req.query.number;
-  if (numStr === void 0 || numStr === null) {
+  if (numStr === void 0 || numStr === null || numStr === '') {
     res.status(httpStatusCodes.StatusCodes.BAD_REQUEST).json({
       message: 'Missing number parameter',
       error: true,
@@ -87,7 +94,14 @@ router.get('/classify-number', async (req, res) => {
   }
   if (!Number.isInteger(parseFloat(numStr))) {
     res.status(httpStatusCodes.StatusCodes.BAD_REQUEST).json({
-      message: 'The number parameter must be an integer',
+      number: numStr,
+      error: true,
+    });
+    return;
+  }
+  if (num > Number.MAX_SAFE_INTEGER) {
+    res.status(httpStatusCodes.StatusCodes.BAD_REQUEST).json({
+      message: 'Number too large',
       error: true,
     });
     return;
@@ -95,13 +109,19 @@ router.get('/classify-number', async (req, res) => {
   const digitSum = getDigitSum(numStr);
   const parity = getParity(numStr);
   const properties = isArmstrong(numStr) ? ['armstrong', parity] : [parity];
+  let funFact;
+  try {
+    funFact = await getFunFact(num);
+  } catch (error) {
+    funFact = 'Could not retrieve fun fact';
+  }
   const response = {
     number: num,
     is_prime: isPrime(numStr),
     is_perfect: isPerfect(numStr),
     properties,
     digit_sum: digitSum,
-    fun_fact: await getFunFact(num),
+    fun_fact: funFact,
   };
   res.status(httpStatusCodes.StatusCodes.OK).json(response);
   return;

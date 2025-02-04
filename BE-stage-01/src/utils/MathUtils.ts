@@ -1,4 +1,7 @@
 export const isPrime = function isPrime(numStr: string): boolean {
+  if (numStr.startsWith('-')) {
+    return false;
+  }
   const num = parseInt(numStr, 10);
   if (num <= 1) {
     return false;
@@ -12,8 +15,11 @@ export const isPrime = function isPrime(numStr: string): boolean {
 };
 
 export const isArmstrong = function isArmstrong(numStr: string): boolean {
+  if (numStr.startsWith('-')) {
+    return false;
+  }
   const num = parseInt(numStr, 10);
-  if (num < 0) {
+  if (num <= 0) {
     return false;
   }
   const digits = numStr.split('');
@@ -32,15 +38,16 @@ export const getDigitSum = function getDigitSum(numStr: string): number {
     ? numStr
         .slice(1)
         .split('')
-        .map((digit, index) =>
-          index === 0 ? -parseInt(digit, 10) : parseInt(digit, 10)
-        )
+        .map((digit) => parseInt(digit, 10))
     : numStr.split('').map((digit) => parseInt(digit, 10));
   const sum = digits.reduce((acc, digit) => acc + digit, 0);
-  return sum;
+  return numStr.startsWith('-') ? -sum : sum;
 };
 
 export const isPerfect = function isPerfect(numStr: string): boolean {
+  if (numStr.startsWith('-')) {
+    return false;
+  }
   const num = parseInt(numStr, 10);
   if (num < 6) {
     return false;

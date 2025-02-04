@@ -29,7 +29,7 @@ router.get(
   async (req: Request, res: Response): Promise<void> => {
     const numStr = req.query.number as string;
 
-    if (numStr === undefined || numStr === null) {
+    if (numStr === undefined || numStr === null || numStr === '') {
       res.status(StatusCodes.BAD_REQUEST).json({
         message: 'Missing number parameter',
         error: true,
@@ -48,7 +48,15 @@ router.get(
 
     if (!Number.isInteger(parseFloat(numStr))) {
       res.status(StatusCodes.BAD_REQUEST).json({
-        message: 'The number parameter must be an integer',
+        number: numStr,
+        error: true,
+      });
+      return;
+    }
+
+    if (num > Number.MAX_SAFE_INTEGER) {
+      res.status(StatusCodes.BAD_REQUEST).json({
+        message: 'Number too large',
         error: true,
       });
       return;
@@ -59,13 +67,20 @@ router.get(
 
     const properties = isArmstrong(numStr) ? ['armstrong', parity] : [parity];
 
+    let funFact;
+    try {
+      funFact = await getFunFact(num);
+    } catch (error) {
+      funFact = 'Could not retrieve fun fact';
+    }
+
     const response: ApiResponse = {
       number: num,
       is_prime: isPrime(numStr),
       is_perfect: isPerfect(numStr),
       properties: properties,
       digit_sum: digitSum,
-      fun_fact: await getFunFact(num),
+      fun_fact: funFact,
     };
     res.status(StatusCodes.OK).json(response);
     return;

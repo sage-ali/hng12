@@ -34,10 +34,7 @@ describe('GET /classify-number', () => {
   it('should return error for non-integer number', async () => {
     const response = await request(app).get('/classify-number?number=1.5');
     expect(response.status).toBe(400);
-    expect(response.body).toHaveProperty(
-      'message',
-      'The number parameter must be an integer'
-    );
+    expect(response.body).toHaveProperty('number', '1.5');
     expect(response.body).toHaveProperty('error', true);
   });
 

@@ -30,6 +30,7 @@ describe('MathUtils', () => {
     it('should return false for negative numbers', () => {
       expect(isPrime('-1')).toBe(false);
       expect(isPrime('-5')).toBe(false);
+      expect(isPrime('-58')).toBe(false);
     });
   });
 
@@ -45,6 +46,7 @@ describe('MathUtils', () => {
     });
 
     it('should return false for non-armstrong numbers', () => {
+      expect(isArmstrong('0')).toBe(false);
       expect(isArmstrong('10')).toBe(false);
       expect(isArmstrong('100')).toBe(false);
       expect(isArmstrong('200')).toBe(false);
@@ -64,6 +66,7 @@ describe('MathUtils', () => {
     it('should return correct digit sum for negative numbers', () => {
       expect(getDigitSum('-1')).toEqual(-1);
       expect(getDigitSum('-5')).toEqual(-5);
+      expect(getDigitSum('-58')).toEqual(-13);
     });
   });
 
@@ -90,6 +93,7 @@ describe('MathUtils', () => {
     it('should return false for negative numbers', () => {
       expect(isPerfect('-1')).toBe(false);
       expect(isPerfect('-5')).toBe(false);
+      expect(isPerfect('-58')).toBe(false);
     });
   });
 
