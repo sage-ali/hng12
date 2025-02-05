@@ -36,7 +36,7 @@ router.get(
       return;
     }
 
-    if (!/^\d+$/.test(numStr)) {
+    if (!/^-?\d+$/.test(numStr)) {
       res.status(StatusCodes.BAD_REQUEST).json({
         number: numStr,
         error: true,

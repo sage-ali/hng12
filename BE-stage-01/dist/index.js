@@ -84,7 +84,7 @@ router.get('/classify-number', async (req, res) => {
     });
     return;
   }
-  if (!/^\d+$/.test(numStr)) {
+  if (!/^-?\d+$/.test(numStr)) {
     res.status(httpStatusCodes.StatusCodes.BAD_REQUEST).json({
       number: numStr,
       error: true,
