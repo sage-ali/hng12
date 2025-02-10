@@ -1,0 +1,60 @@
+name: CD Pipeline
+
+on:
+  pull_request:
+    types: [closed]
+    branches:
+      - main
+
+jobs:
+  deploy:
+    if: github.event.pull_request.merged == true
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Set up Python
+        uses: actions/setup-python@v2
+        with:
+          python-version: '3.12'
+
+      - name: Install dependencies
+        run: |
+          python -m venv venv
+          source venv/bin/activate
+          pip install -r requirements.txt
+          # Clean up after installation
+          deactivate
+        working-directory: BE-stage-02-fastapi-book-project
+
+      # Generate the Dockerfile
+      - name: Generate Dockerfile
+        run: |
+          cp Dockerfile.template Dockerfile
+        working-directory: BE-stage-02-fastapi-book-project
+
+      # Build Docker image
+      - name: Build Docker Image
+        run: |
+          docker build -t my-fastapi-app .
+        working-directory: BE-stage-02-fastapi-book-project
+
+      # Push Docker image to Docker Hub
+      - name: Push Docker Image
+        run: |
+          echo ${{ secrets.DOCKER_PASSWORD }} | docker login --username=$DOCKER_USERNAME --password-stdin
+          docker tag my-fastapi-app $DOCKER_USERNAME/my-fastapi-app:latest
+          docker push $DOCKER_USERNAME/my-fastapi-app:latest
+        working-directory: BE-stage-02-fastapi-book-project
+
+      # Trigger deployment on Render
+      - name: Trigger Deployment
+        run: |
+          curl -X POST \
+            -H "Authorization: Bearer ${{ secrets.RENDER_API_TOKEN }}" \
+            -H "Content-Type: application/json" \
+            -d '{"serviceId": "${{ secrets.RENDER_SERVICE_ID }}"}' \
+            https://api.render.com/v1/services/${{ secrets.RENDER_SERVICE_ID }}/deploys
+        working-directory: BE-stage-02-fastapi-book-project
