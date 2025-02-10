@@ -1,5 +1,4 @@
 {
-  "*.{js,ts}": ["eslint --fix", "prettier --write"],
-  "*.{json,md}": ["prettier --write"],
-  "*.py": ["flake8 --max-line-length=88"]
+  "*.{js,ts}": ["eslint --fix", "npx prettier --write"],
+  "*.{json,md}": ["npx prettier --write"]
 }
