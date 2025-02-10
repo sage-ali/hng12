@@ -29,32 +29,11 @@ jobs:
           deactivate
         working-directory: BE-stage-02-fastapi-book-project
 
-      # Generate the Dockerfile
-      - name: Generate Dockerfile
-        run: |
-          cp Dockerfile.template Dockerfile
-        working-directory: BE-stage-02-fastapi-book-project
-
-      # Build Docker image
-      - name: Build Docker Image
-        run: |
-          docker build -t my-fastapi-app .
-        working-directory: BE-stage-02-fastapi-book-project
-
-      # Push Docker image to Docker Hub
-      - name: Push Docker Image
-        run: |
-          echo ${{ secrets.DOCKER_PASSWORD }} | docker login --username=$DOCKER_USERNAME --password-stdin
-          docker tag my-fastapi-app $DOCKER_USERNAME/my-fastapi-app:latest
-          docker push $DOCKER_USERNAME/my-fastapi-app:latest
-        working-directory: BE-stage-02-fastapi-book-project
-
       # Trigger deployment on Render
-      - name: Trigger Deployment
+      - name: Deploy
+        # Only run this step if the branch is main
+        if: github.ref == 'refs/heads/main'
+        env:
+          deploy_url: ${{ secrets.RENDER_DEPLOY_HOOK_URL }}
         run: |
-          curl -X POST \
-            -H "Authorization: Bearer ${{ secrets.RENDER_API_TOKEN }}" \
-            -H "Content-Type: application/json" \
-            -d '{"serviceId": "${{ secrets.RENDER_SERVICE_ID }}"}' \
-            https://api.render.com/v1/services/${{ secrets.RENDER_SERVICE_ID }}/deploys
-        working-directory: BE-stage-02-fastapi-book-project
+          curl "$deploy_url"
