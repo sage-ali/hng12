@@ -1,2 +1,6 @@
 npm install
 npm run lint
+source ~/hng/BE-stage-02-fastapi-book-project/fastapi/bin/activate
+echo "Using Python from $(which python)"
+pip install -r BE-stage-02-fastapi-book-project/requirements.txt
+flake8 BE-stage-02-fastapi-book-project

@@ -88,6 +88,7 @@ export default [
       '**/build/**/*',
       '**/build/**/**/*',
       'BE-stage-01/add-js-extensions.js',
+      'BE-stage-02-fastapi-book-project/**',
     ], // Add this line
     languageOptions: {
       ecmaVersion: 2021,
@@ -144,6 +145,7 @@ export default [
       '**/build/**/*',
       '**/build/**/**/*',
       'BE-stage-01/add-js-extensions.js',
+      'BE-stage-02-fastapi-book-project/**',
     ], // Add this line
     languageOptions: {
       parser: tsParser,
